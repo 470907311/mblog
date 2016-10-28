@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="梁康伦,PHP,MySQL,liangkanglun,技术博客" />
+		<meta name="description" content="PHP集成开发工程师" />
+		<title>梁康伦的博客</title>
+		<link href="./css/bootstrap.min.css" rel="stylesheet">
+		<style type="text/css">
+			#title{width:100%; height:200px; background:lightblue;}
+			#ss{font-size:42px; top:60px; position:absolute; left:80px;}
+			.form-group{position:absolute; left:700px; top:80px;}
+			.container{width:100%;}
+			.navbar-nav{margin-left:80px;}
+			.navbar-nav li{margin-left:50px;}
+			.column{margin-left:50px; border:1px solid #ddd;}
+
+		</style>
+	</head>
+	<body>
+		<div id="title">
+			<span id="ss">梁康伦的博客</span>
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+					<input class="form-control" type="text" />
+					<button type="submit" class="btn btn-default">搜索</button>
+				</div> 
+			</form>
+		</div>
+		<div class="container">
+			<div class="row clearfix">
+					<nav class="navbar navbar-default" role="navigation">
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+							<ul class="nav navbar-nav">
+								<li class="active">
+									 <a href="./index.html">首页</a>
+								</li>
+								<li>
+									 <a href="#">PHP</a>
+								</li>
+								<li>
+									 <a href="#">MySQL</a>
+								</li>
+								<li>
+									 <a href="#">微信开发</a>
+								</li>
+								<li>
+									 <a href="#">git</a>
+								</li>
+								<li>
+									 <a href="#">工具</a>
+								</li>
+								<li>
+									 <a href="#">杂谈</a>
+								</li>
+							</ul>
+						</div>
+					</nav>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-7 column">
+					<h2>
+						如何在github上搭建自己的博客
+					</h2>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><font size="4">作者：梁康伦</font></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span><font size="4">时间：2016年10月18日</font></span>
+					<br>
+					<br>
+						<div class="post-content">
+                           
+                           <p>第一步：在github网站创建你的账号
+                                <pre>网址:http://www.github.com</pre>
+                           </p>
+
+                           <p>第二步：新建一个仓库
+                                <p>点击右上角的+号，然后点击New repository</p>
+                                <img src="./fonts/1.png">
+
+                           </p>
+
+                            <p>
+
+                                <img  class="img-responsive" src="./fonts/2.png">
+                                <h4>点击Create repository按钮就可以新建一个仓库</h4>
+                            </p>   
+                            <hr>
+                            <p>
+                                <h4>接下来就是出现这个页面了。</h4>
+                                <img class="img-responsive" src="./fonts/3.png">
+                            </p> 
+                           
+
+                           <p>
+                             第三步：创建gh-pages分支
+                             <p>
+                                <img class="img-responsive"  src="./fonts/4.png">
+                             </p>
+                             输入正确后，直接回车键保存。到此为止，gh-pages分支就创建完成。并且我们的基于github的个人博客也完成了。
+                           </p>
+                           <p style="color:red">
+                                注：我们只需要往gh-pages分支提交我们的静态代码就可以了。
+                           </p>
+
+                           <p>
+                                以下是将github网站仓库的代码克隆到我们自己的电脑的过程：
+                           </p>
+                           <p>
+                                <span style="color:red">1. 克隆你的项目(如果是Window系统，建议下载Git Bash这个软件，以下命令都是在Git Bash中输入的)
+                                </span>
+                                    <pre>git clone URL</pre>
+
+                                2. 将gh-page远程分支检出
+                                       <pre>git checkout --track origin/gh-pages</pre>
+
+                                3. 写你的代码
+                                <br/>
+                                <br/>
+
+                                4. 添加刚刚写的代码
+                                    <pre>git add .</pre>
+
+                                5. 提交代码到本地仓库
+                                    <pre>git commit -m '提交的时候写些注释'</pre>
+
+
+                                6. 将第三步写的代码，提交到gh-pages分支
+                                    
+                                    <pre>git push origin gh-pages</pre>
+                           </p>
+						   <p>
+								第四步：域名绑定
+								<p>在gh-pages下创建一个文件CNAME</p>
+								<p><img src="./fonts/5.png"></p>
+								<p>点击编辑，输入你需要绑定的域名即可</p>
+								<p><img src="./fonts/6.png"></p>
+								<p>域名解析，这里以阿里云的为例</p>
+								<p><img src="./fonts/7.png" width="600px"></p>
+								
+								<p><font color="red">注意：github服务器的ip是192.30.252.153、192.30.252.154</font></p>
+						   </p>
+                        </div>
+					<br>
+					<br>
+				</div>
+
+				<div class="col-md-4 column">
+					<h3>博文链接</h3>
+					<ul>
+						<li>
+							<a href="./gd.html" target="_blank">GD库函数使用</a>
+						</li>
+						<li>
+							<a href="./git.html" target="_blank">如何在github上搭建自己的博客</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+	</body>
+</html>
