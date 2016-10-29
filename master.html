@@ -9,7 +9,7 @@
 		<title>梁康伦的博客</title>
 		<link href="./css/bootstrap.min.css" rel="stylesheet">
 		<style type="text/css">
-			#title{width:100%; height:200px; background:lightblue;}
+			#title{width:100%; height:200px; background:#3DC5F9;}
 			#ss{font-size:42px; top:60px; position:absolute; left:80px;}
 			.form-group{position:absolute; left:700px; top:80px;}
 			.container{width:100%;}
@@ -26,7 +26,7 @@
 				<div class="form-group">
 					<input class="form-control" type="text" />
 					<button type="submit" class="btn btn-default">搜索</button>
-				</div> 
+				</div>
 			</form>
 		</div>
 		<div class="container">
@@ -70,7 +70,7 @@
 					<br>
 						<pre><code>
 准备
-两台linux ContOS6.3 
+两台linux ContOS6.3
 Lamp环境已装好
 Ip地址：
 主服务器master 192.168.24.87
@@ -146,7 +146,7 @@ ls /usr/local/mysql/data/
 
 查看是否开启？
 show variables like "%log%";
-log_bin     | ON 
+log_bin     | ON
 
 Bin-log 日志刷新
 mysql> flush logs;
@@ -181,9 +181,9 @@ cd /usr/local/mysql/data
 /usr/local/mysql/bin/mysqlbinlog mysql-bin.000014
 
 Bin-log日志使用测试
-use test  
+use test
 选择数据库
-reset master  
+reset master
 清空所有的bin-log日志
 show master status;
 当前file是mysql-bin.000001，positon开始位置是从107行开始
