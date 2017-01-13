@@ -62,143 +62,107 @@
             <div class="row clearfix">
                 <div class="col-md-7 column">
                     <h2>
-                        PHP目录操作
+                        MySQL基本操作
                     </h2>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><font size="4">作者：梁康伦</font></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span><font size="4">时间：2017年01月06日</font></span>
+                    <span><font size="4">时间：2017年01月13日</font></span>
                     <br>
                     <br>
-                        <pre><code>
-一. 遍历目录下所有文件
+                        <div class="post-content">
+                            <pre><code>
+MySQL 基本操作
+    1.MySQL 安装
+    2 MySQL数据库的连接与关闭
+        ① 连接（登陆mysql服务器）
+            mysql –h 服务器主机地址 –u 用户名 –p 用户密码
+            如：
+                mysql -h 192.168.x.x -u root -p
 
-//要遍历的目录
-$path = 'C:\phpStudy\WWW\gz01';
+            只有客户机所在的主机被授予权限才能去连接MySQL服务器。
+            mysql -uroot -proot  明文连接
 
-//调用函数
-myDir($path);
-
-//定义遍历目录所有文件
-function myDir($path)
-{
-     //打开目录
-    $source = opendir($path);
-
-    //循环遍历目录
-    //由于有些文件的名字可以是 0 while进行判断的时候 会返回false
-    //就不会再循环了，在这里使用全等判断(下同)
-    while (false !== ($filename = readdir($source))) {
-
-        //跳过两层目录  . 跟 ..
-        if ($filename == '.' || $filename == '..') continue;
-
-        //路径处理
-        $path = rtrim($path, '/') .'/';
-
-        if (is_dir($path.$filename)) {
-            //递归调用自己
-            myDir($path.$filename);
-        } else {
-            //系统是gkb编码，需要转换成utf8才能正常输出
-            echo $path.iconv('gbk', 'utf-8' ,$filename);
-        }
-    }
-
-    //关闭目录
-    closedir($source);
-}
+        ② 退出
+            可以通过\q、exit、ctrl+c或者quit来退出当前客户端
 
 
+    3 SQL 命令注意事项：
+        1. 每个SQL命令都需要使用分号来完成
+        2. 可以将一行命令拆成多行
+            如果没有检测到执行符，SQL会一直等等用户输入，直到  检测到，才会执行
 
-二.统计目录所有文件大小
+        3.可以通过\c来取消本行命令
+            一句话没有写完，然后不想写了，可以告诉Mysql，我不写了
 
-//要统计大小的目录
-$path = 'C:/tmp';
+     4 我们可以使用help命令来查询快捷键：
 
-//调用函数并输出结果（返回的是字节单位）
-echo dirSize($path);
+        1.将查询后的数据立起来：\G
+        2.取消当前未完成的操作：\c
+        3.退出当前客户端：\q
+        4.显示当前服务器状态：\s
+        5.显示帮助信息：\h(同help命令)
+        6.更改执行符：\d
 
-//定义一个函数统计目录大小
-function dirSize($path)
-{
-    //定义目录初始值
-    $dirSize = 0;
-     //打开目录
-    $source = opendir($path);
+            \d ;; 将执行符修改成  ;;
 
-    //循环遍历目录
-    while (false !== ($filename = readdir($source))) {
-
-        //跳过两层目录  . 跟 ..
-        if ($filename == '.' || $filename == '..') continue;
-
-        //路径处理
-        $path = rtrim($path, '/') .'/';
-
-        if (is_dir($path.$filename)) {
-            //递归调用
-            $dirSize += dirSize($path.$filename);
-        }
-
-        //获取文件大小并累加
-        $dirSize += filesize($path.$filename);
-    }
-
-    //关闭目录
-    closedir($source);
-    //返回目录总大小
-    return $dirSize;
-}
+            如：查看所有库  分号是结束命令执行
+                show databases;
+        1064 语法错误
+            解决：请重新输入
 
 
+    5 更改root 用户的密码
+        ① 使用root 登陆 mysql服务区
+            mysql -u root -p密码
+        ② 选择mysql数据库
+            use mysql;
 
-三.删除目录下的所有文件
+        ③ 修改 User表中中 root 用户的密码
+            update user set Password=password('新密码') where User='root';
+                where 条件是必须的，如果没有，会修改所有用户的密码
 
-//定义要删除的目录
-$path = '';
+        ④ 更新权限 flush privileges;
 
-//调用删除目录函数
-delDir($path);
+    6 创建新用户并授权
 
-//删除目录函数
-function delDir($path)
-{
-    //判断文件是否存在
-    if (!file_exists($path)) {
-        return false;
-    }
+        GRANT 权限 ON 数据库.数据表 TO 用户名@登录主机 IDENTIFIED BY “密码”
 
-    //处理路径
-    $path = rtrim($path, '/') .'/';
+        如：
+        1. grant SELECT,INSERT,UPDATE,DELETE ON *.* TO lisi@"%" IDENTIFIED BY "123"
 
-    //打开目录
-    $source = opendir($path);
+        2. grant all ON *.* TO lisi@"%" IDENTIFIED BY "123"
 
-    //目录的遍历
-    while (false !== $filename = readdir($source)) {
+            1. all 代表所有权限
+            2. *.* 代表所有库 所有表
+            3. 使用 grant 创建用户，如果用户不存在，则创建 ，如果用户存在，则更改信息
 
-        //跳过两层目录  . 跟 ..
-        if ($filename == '.' || $filename == '..') continue;
 
-        if (is_dir($path.$filename)) {
-            //递归删除文件
-            del($path.$filename);
-        } else {
-            //删除文件
-            unlink($path.$filename);
-        }
-    }
+    7 删除普通用户(不要把用户全部删除！！！！)
+        ① 使用root 用户登陆
+        ② 选择mysql数据库      use mysql;
+        ③ 删除指定的普通用户 delete from user where User='用户名';
+            where 条件是必须的，如果没有，会删除所有用户
+        ④ 更新权限  flush privileges;
 
-    //关闭目录
-    closedir($source);
+    8 忘记root 密码
+        ① 关闭mysql服务
+        ② 使用安全模式 打开mysql服务  mysqld --skip-grant-tables (不要加分号)
+        ③ 使用root用户不用密码登陆   mysql -u root
+        ④ 登陆后 进入mysql数据库        use mysql;
+        ⑤ 更改root密码
+            update user set Password=password('新密码') where User='root';
+        ⑥ 更新权限          flush privileges;
+        ⑦ 退出mysql安全模式   mysqladmin -u root -p shutdown
+            要求输入刚刚设置的新密码
+        ⑧ 重新开启mysql服务
 
-    //在关闭目录后，将空目录干掉
-    rmdir($path);
-
-}
+        只能在本地机器执行
 
 
 </code></pre>
-                <br>
+
+
+                        </div>
+                    <br>
                     <br>
                 </div>
 
@@ -242,4 +206,4 @@ function delDir($path)
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     </body>
-</html>
+</html
